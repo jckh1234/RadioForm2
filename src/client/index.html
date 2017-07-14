@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Template</title>
+
+    <!--libs-->
+    <script src="./libs/jquery.min.js" type="text/javascript"></script>
+    <script src="./libs/redux.min.js" type="text/javascript"></script>
+
+    <!-- Table Definitions. Must be included first-->
+    <script src="TableSetup.js" type="text/javascript"></script>
+
+    <!--store helper functions and store-->
+    <script src="./store/FormDataPrefill.js" type="text/javascript"></script>
+    <script src="./store/RowValueSelectionHandler.js" type="text/javascript"></script>
+    <script src="./store/FormDataValidator.js" type="text/javascript"></script>
+    <script src="./store/store.js" type="text/javascript"></script>
+
+
+    <script src="setUpReact.js" type="text/javascript"></script>
+
+    <script>
+    
+      setUpReact({
+        userInfoID:"gloFutUserInfo",
+        formID:"gloFutForm"
+      });
+
+
+      $(document).ready(function(){
+        
+        store.dispatch({
+          type:"ReloadData",
+          userData:{
+            isProfessionalUser:false,
+            appliedPlans:[
+              {
+                //CME, EUREX or ICE
+                planType:'CME',
+                rowsSelections: [
+                  {
+                    rowId: 'CBOT_NPRO',
+                    value: '2'
+                  }
+                ]
+              },
+              {
+                planType:'EUREX',
+                rowsSelections:[]
+              }
+            ]
+          }
+        });
+
+
+        $('.btnGetApply').click(function(){
+          alert(JSON.stringify(store.getState().formInput.applyForm));
+        });
+
+        $('.btnGetChange').click(function(){
+          alert(JSON.stringify(store.getState().formInput.changeForm));
+        });
+
+        $('.btnGetTerminate').click(function(){
+          alert(JSON.stringify(store.getState().formInput.terminateForm));
+        });
+
+        $('.btnGetSubmissionType').click(function(){
+          alert(store.getState().formInput.submissionType);
+        });
+
+      });
+
+
+      
+    </script>
+
+  </head>
+  <body>
+    <h1 style="color:#000;display:block;background:#A3C0E8;padding:20;">Some Header</h1>
+    <div style="padding:20px">
+      <div>
+        <div id="gloFutUserInfo">
+      </div>
+      <h3 style="color:#ccc;">Feel Free to Add Contents You Want at Index.html!!!!!!!!</h3>
+      <div>
+        <div id="gloFutForm" />
+      </div>
+      <button style="color:#000;display:inline;background:#A3C0E8;border-color: #A3C0E8;padding:10px;margin-top: 40px" class="btnGetSubmissionType">Get Current Submission Type</button>
+      <button style="color:#000;display:inline;background:#A3C0E8;border-color: #A3C0E8;padding:10px;margin-top: 40px" class="btnGetApply">Get Apply Data</button>
+      <button style="color:#000;display:inline;background:#A3C0E8;border-color: #A3C0E8;padding:10px;margin-top: 40px" class="btnGetChange">Get Change Data</button>
+      <button style="color:#000;display:inline;background:#A3C0E8;border-color: #A3C0E8;padding:10px;margin-top: 40px" class="btnGetTerminate">Get Terminate Data</button>
+
+    </div>
+    <script src="public/bundle.js" type="text/javascript"></script>
+  </body>
+</html>
